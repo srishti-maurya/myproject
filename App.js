@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, StyleSheet, Text, View } from "react-native";
+import { Button, StyleSheet, Text, TextInput, View } from "react-native";
 
 /*
 text inside the views do not inherit the views style 
@@ -9,6 +9,9 @@ text inside the text inherits the style
 export default function App() {
   const [name, setName] = useState("mary");
   const [person, setPerson] = useState({ name: "mario", age: 20 });
+  const [inputName, setInputName] = useState("John");
+  const [inputAge, setInputAge] = useState("22");
+
   const buttonHandler = () => {
     setName("srishti");
     setPerson({ name: "Jack", age: 30 });
@@ -28,7 +31,24 @@ export default function App() {
         </Text>
       </View>
       <View style={styles.buttonContainer}>
-        <Button title="update state" onPress={buttonHandler} />
+        <Button color="white" title="update state" onPress={buttonHandler} />
+      </View>
+      <View>
+        <Text>Enter name:</Text>
+        <TextInput
+          placeholder="eg. Jack Joe"
+          style={styles.input}
+          onChangeText={(res) => setInputName(res)}
+        />
+        <Text>Enter age:</Text>
+        <TextInput
+          placeholder="eg. 25"
+          style={styles.input}
+          onChangeText={(res) => setInputAge(res)}
+        />
+        <Text>
+          Name of the user is {inputName} and age is {inputAge}
+        </Text>
       </View>
     </View>
   );
@@ -55,5 +75,13 @@ const styles = StyleSheet.create({
   buttonContainer: {
     backgroundColor: "gray",
     marginTop: 20,
+    marginBottom: 20,
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: "#ccc",
+    padding: 8,
+    margin: 10,
+    width: 200,
   },
 });
