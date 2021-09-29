@@ -1,7 +1,14 @@
 import React, { useState } from "react";
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import {
+  FlatList,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 /*
+
       flatview automatically has scroll view 
       and it does not require a unique key 
       it is prefered over scrollview bcoz on render it does not 
@@ -24,13 +31,23 @@ export default function App() {
     { name: "Tim", id: "10" },
   ]);
 
+  const pressHandler = (id) => {
+    setList((prevPerson) => {
+      return prevPerson.filter((person) => person.id != id);
+    });
+  };
+
   return (
     <View style={styles.container}>
       <FlatList
         numColumns={2}
         keyExtractor={(item) => item.id}
         data={list}
-        renderItem={({ item }) => <Text style={styles.list}>{item.name}</Text>}
+        renderItem={({ item }) => (
+          <TouchableOpacity onPress={() => pressHandler(item.id)}>
+            <Text style={styles.list}>{item.name}</Text>
+          </TouchableOpacity>
+        )}
       />
     </View>
   );
