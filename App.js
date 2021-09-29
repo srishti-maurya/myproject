@@ -1,54 +1,27 @@
 import React, { useState } from "react";
-import {
-  FlatList,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { FlatList, StyleSheet, Text, View } from "react-native";
 
-/*
-
-      flatview automatically has scroll view 
-      and it does not require a unique key 
-      it is prefered over scrollview bcoz on render it does not 
-      loads all the items of the list instead loads only first few and accordingly on the scroll of view 
-      comparetively scrollview renders all the items of the list at once (initially) 
-      
-*/
+import Header from "./components/header";
 
 export default function App() {
-  const [list, setList] = useState([
-    { name: "Jack", id: "1" },
-    { name: "Jacky", id: "2" },
-    { name: "Joe", id: "3" },
-    { name: "John", id: "4" },
-    { name: "Mary", id: "5" },
-    { name: "Mathew", id: "6" },
-    { name: "Mario", id: "7" },
-    { name: "Kelvin", id: "8" },
-    { name: "Kim", id: "9" },
-    { name: "Tim", id: "10" },
+  const [todos, setTodos] = useState([
+    { text: "buy coffee", key: "1" },
+    { text: "create an app", key: "2" },
+    { text: "play on the switch", key: "3" },
   ]);
-
-  const pressHandler = (id) => {
-    setList((prevPerson) => {
-      return prevPerson.filter((person) => person.id != id);
-    });
-  };
-
   return (
     <View style={styles.container}>
-      <FlatList
-        numColumns={2}
-        keyExtractor={(item) => item.id}
-        data={list}
-        renderItem={({ item }) => (
-          <TouchableOpacity onPress={() => pressHandler(item.id)}>
-            <Text style={styles.list}>{item.name}</Text>
-          </TouchableOpacity>
-        )}
-      />
+      {/* header */}
+      <Header />
+      <View style={styles.content}>
+        {/* todo form  */}
+        <View style={styles.list}>
+          <FlatList
+            data={todos}
+            renderItem={({ item }) => <Text>{item.text}</Text>}
+          />
+        </View>
+      </View>
     </View>
   );
 }
@@ -57,14 +30,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    // alignItems: "center",
-    // justifyContent: "center",
+  },
+  content: {
+    padding: 40,
   },
   list: {
-    padding: 30,
-    marginTop: 50,
-    backgroundColor: "#CEE5D0",
-    fontSize: 24,
-    marginHorizontal: 10,
+    marginTop: 20,
   },
 });
